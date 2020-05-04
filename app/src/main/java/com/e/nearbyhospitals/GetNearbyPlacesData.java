@@ -14,9 +14,9 @@ import java.io.IOException;
 
 public class GetNearbyPlacesData extends AsyncTask<Object,String,String> {
 
-    String googlePlacesData;
-    GoogleMap googleMap;
-    String url;
+    private String googlePlacesData;
+    private GoogleMap googleMap;
+    private String url;
 
     @Override
     protected String doInBackground(Object... objects) {
@@ -38,6 +38,8 @@ public class GetNearbyPlacesData extends AsyncTask<Object,String,String> {
         try {
             JSONObject parentObject = new JSONObject(s);
             JSONArray resultArray = parentObject.getJSONArray("results");
+
+
 
             for (int i =0; i<resultArray.length(); i++){
                 JSONObject jsonObject = resultArray.getJSONObject(i);

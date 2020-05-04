@@ -12,6 +12,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
@@ -109,7 +110,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         stringBuilder.append("location"+String.valueOf(currentLatitude)+","+String.valueOf(currentLongitude));
         stringBuilder.append("&radius=1000");
         stringBuilder.append("&type=hospital");
-        stringBuilder.append("&key="+getResources().getString(R.string.google_maps_key));
+        stringBuilder.append("&key=AIzaSyADdvCIhNTqc1cOJF9-q-yPiW8kOUE4zQ8"+getResources().getString(R.string.google_maps_key));
 
         String url = stringBuilder.toString();
 
@@ -133,6 +134,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onProviderDisabled(String provider) {
+
     }
 
     @Override
@@ -192,7 +194,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                             .addLocationRequest(locationRequest);
                     builder.setAlwaysShow(true);
-                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, this);
+                    com.google.android.gms.location.FusedLocationProviderClient fusedLocationProviderClient=LocationServices.getFusedLocationProviderClient(this);
+
                     PendingResult<LocationSettingsResult> result =
                             LocationServices.SettingsApi
                                     .checkLocationSettings(mGoogleApiClient, builder.build());
@@ -247,6 +250,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 }
             }
+        }
+    }
+
+    private static class FusedLocationProviderClient {
+        public static void requestLocationUpdates(GoogleApiClient mGoogleApiClient, LocationRequest locationRequest, MapsActivity mapsActivity) {
         }
     }
 }
